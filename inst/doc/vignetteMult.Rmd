@@ -1,0 +1,82 @@
+---
+title: "MultiGroupO vignette"
+output: 
+  rmarkdown::html_vignette:
+    css: vignette.css
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{MultiGroupO vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  fig.width=6,
+  fig.height=5,
+  collapse = TRUE,
+  comment = "#"
+)
+
+```
+
+<style>
+/*body {background-color: powderblue;}*/
+h1   {color: blue;}
+p    {color: black;}
+</style>
+
+
+<div class="top"><a class="toplink" href="#nav" title="&uArr; top">&nbsp;</a></div>
+<div id="nav">
+<ul>
+<li>[vignetteMult](vignetteMult.html)</li>
+<li>[datR](datR.html "Real Datasets Application")</li>
+</ul>
+</div>
+
+# Introduction
+The package contains functions to simulate multigroup data from a multivariate normal with different mean, matrix structures of variances and covariances, it will also consider not only biological signal but also considers noise variables for the different sizes of groups that can be balanced or unbalanced. It also contains functions with the new proposed multigroup methods. 
+
+For an overview of supported, methods, and defaults together with some basic examples see
+
+  * [README](https://cran.r-project.org) of the released version on CRAN;
+  * [README](https://github.com) of the development version on GitHub.
+
+
+# Installation
+You can install the development version from [GitHub](https://github.com/) with
+```
+# install.packages("remotes")
+remotes::install_github("carolina/MultiGroupO")
+```
+# Contributors
+- Carolina Millapan (author, maintainer)
+- Ferran Reverter (author)
+- Esteban Vegas (author)
+ 
+
+# Session Information
+
+```{r setup}
+library(MultiGroupO)
+sim.list<-fun.sim(g=c(30,30,30),mean1=2,d=0,sds2=c(1,1,1,1),corr=c(0.5,0.5,0.5,0),
+                      n.var=c(20,50))
+    datos1 <- as.data.frame(sim.list$x)
+    datos1<-subset(datos1,select=-grp)
+    grupos <- sim.list$grp
+     pca(datos1,grupos,Plot=TRUE,center=TRUE,scale=FALSE)
+     mat.to.diag1<-new.cov(datos1,cls=grupos,A=diag(ncol(datos1)))
+      mgpca(mat.to.diag=mat.to.diag1,mat.x=as.matrix(datos1),cls=grupos,Plot=T,ncomp=2,center = TRUE,scale = TRUE)
+```
+
+```{r setup2}
+library(MultiGroupO)
+sim.list<-fun.sim(g=c(30,30,30),mean1=2,d=0,sds2=c(1,1,1,1),corr=c(0.5,0.5,0.5,0),
+                  n.var=c(20,50))
+datos1 <- as.data.frame(sim.list$x)
+datos1<-subset(datos1,select=-grp)
+grupos <- sim.list$grp
+mdr(g=c(30,30,30),grp=as.factor(sim.list$grp),data.x=sim.list$`lisx`,c=2)
+```
+

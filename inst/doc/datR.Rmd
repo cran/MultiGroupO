@@ -1,0 +1,77 @@
+---
+title: "Real Datasets Application"
+lang: "en"
+output:
+  rmarkdown::html_vignette:
+    css: vignette.css
+vignette: >
+  %\VignetteIndexEntry{Real Datasets Application}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#"
+  )
+
+```
+
+<style>
+/*body {background-color: powderblue;}*/
+h1   {color: blue;}
+p    {color: black;}
+</style>
+
+
+<div class="top"><a class="toplink" href="#nav" title="&uArr; top">&nbsp;</a></div>
+<div id="nav">
+<ul>
+<li>[vignetteMult](vignetteMult.html "MultiGroupO vignette")</li>
+<li>[datR](datR.html "Real Datasets Application")</li>
+</ul>
+</div>
+
+
+# Description 
+Gene expression data from Khan et al. (2001).
+This data set contains 83 samples with 2308 genes: 29 cases of Ewing sarcoma (EWS), 
+coded 1, 11 cases of Burkitt lymphoma (BL), coded 2, 18 cases of neuroblastoma (NB), 
+coded 3, 25 cases of rhabdomyosarcoma (RMS), coded 4. A total of 63 training samples 
+and 25 test samples are provided in Khan et al. (2001). Five of the test set are 
+non-SRBCT and are not considered here. 
+The training sample indexes correspond to 1:65 and the test sample indexes 
+(without non-SRBCT sample) correspond to 66:83.
+
+
+# Standard PCA method
+```{r setup}
+library(plsgenomics)
+library(MultiGroupO)
+data(SRBCT)
+ mydata<-SRBCT$X
+ mydata<-mydata[,1:5]
+ groups<-as.factor(SRBCT$Y)
+ pca(datos=mydata,grupos=groups,Plot=TRUE,center=TRUE,scale=FALSE)
+      
+```
+# Multigroup PCA method
+```{r setup1}
+library(plsgenomics)
+data(SRBCT)
+mydata<-SRBCT$X
+mydata<-mydata[,1:5]
+groups<-as.factor(SRBCT$Y)
+mat.to.diag1<-new.cov(x=mydata,cls=groups,A=diag(ncol(mydata)))
+mgpca(mat.to.diag=mat.to.diag1,mat.x=as.matrix(mydata),cls=groups,Plot=TRUE,ncomp=2,center = TRUE,scale = TRUE)
+```
+
+# MDR method
+```{r setup2}
+library(plsgenomics)
+data(SRBCT)
+mydata<-SRBCT$X
+mydata<-mydata[,1:5]
+groups<-as.factor(SRBCT$Y)
+mydata<-split(as.data.frame(mydata),groups)
+mdr(g=c(29,11,18,25),grp=groups,data.x=mydata,c=2)
