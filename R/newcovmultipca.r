@@ -4,6 +4,7 @@
 #'
 #' @importFrom expm sqrtm
 #' @importFrom stats cov
+#' @import plsgenomics
 #' @param x is a matrix with the data
 #' @param cls is a vector of classes
 #' @param A is a symmetric and positive definite matrix associated to inner product respect to the base of its vectorial space.

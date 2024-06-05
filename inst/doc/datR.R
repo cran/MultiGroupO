@@ -12,7 +12,7 @@ data(SRBCT)
  mydata<-SRBCT$X
  mydata<-mydata[,1:5]
  groups<-as.factor(SRBCT$Y)
- pca(datos=mydata,grupos=groups,Plot=TRUE,center=TRUE,scale=FALSE)
+ pca(datos=mydata,grupos=groups,Plot=TRUE,center=TRUE,scale=TRUE)
       
 
 ## ----setup1-------------------------------------------------------------------
@@ -31,5 +31,5 @@ mydata<-SRBCT$X
 mydata<-mydata[,1:5]
 groups<-as.factor(SRBCT$Y)
 mydata<-split(as.data.frame(mydata),groups)
-mdr(g=c(29,11,18,25),grp=groups,data.x=mydata,c=2)
+mdr(group=groups,data.x=mydata,c=2)
 

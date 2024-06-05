@@ -5,6 +5,8 @@
 #'
 #' @importFrom ggplot2 ggplot geom_point scale_color_brewer theme geom_density scale_fill_brewer aes xlab ylab labs
 #' @importFrom gridExtra grid.arrange
+#' @importFrom stats dist
+#' @import plsgenomics
 #' @param mat.to.diag is a matrix with the data
 #' @param mat.x is a vector of classes
 #' @param cls group
@@ -40,58 +42,77 @@ mgpca<-function(mat.to.diag,mat.x,cls,Plot=TRUE,ncomp=2,center = TRUE,scale = TR
   s <- svd(mat.to.diag)
   u<-s$u
   PCA.points <- mat.x%*%u
+  PCA.1.points <- mat.x%*%s$u[,1]
+  PCA.2.points <- mat.x%*%s$u[,2]
+
+
   loadings = u
   values<-(s$d)
   group<-cls
   pcmgdatos<-as.data.frame(PCA.points)
   pcmgdatos<-cbind(pcmgdatos,group)
-  percentage1 <- round((values / sum(values))*100, 2)
+
+
+  # Calculo de sumas de interdistancias al cuadrado global y entre grupos.
+  interd_global_x <- sum(as.matrix(dist(PCA.points)^2))
+
+  interd_total <- as.matrix(dist(PCA.points)^2)
+  sum_interd_total  <-sum(interd_total)
+
+  #forma 1
+  sum.within <- 0
+  for (i in levels(cls)){
+    sum.within <- sum.within + sum(interd_total[cls==i,cls==i])
+  }
+
+  sum_interd_between <- sum_interd_total  - sum.within
+
+
+  pctg.1 <- sum(as.matrix(dist(PCA.1.points)^2))/sum_interd_total
+  pctg.2 <- sum(as.matrix(dist(PCA.2.points)^2))/sum_interd_total
+
+
+
+  percentage1 <- round(c(pctg.1,pctg.2)*100,2)
   percentage <- paste( "(", paste( as.character(percentage1), "%", ")", sep="") )
 
   if(Plot){
     scatterPlot1 <- ggplot(pcmgdatos,aes(V1,V2, color=group)) +
       geom_point(size = 3) + labs(x = paste("PC1",percentage[1]),
                                   y=paste("PC2",percentage[2]))+
-      scale_color_brewer(palette="Accent")+
-      theme(legend.position="bottom")
-    scatterPlot1
+      scale_color_brewer(palette="Set2")
+
 
       scatterPlot2 <- ggplot(pcmgdatos,aes(V1, V3, color=group)) +
       geom_point(size = 3) + labs(x = paste("PC1",percentage[1]),
                                   y=paste("PC3",percentage[3]))+
-      scale_color_brewer(palette="Accent")+
-      theme(legend.position="bottom")
-    scatterPlot2
+      scale_color_brewer(palette="Set2")
+
 
     scatterPlot3 <- ggplot(pcmgdatos,aes(V2, V3, color=group)) +
       geom_point(size = 3) + labs(x = paste("PC2",percentage[2]),
                                   y=paste("PC3",percentage[3]))+
-      scale_color_brewer(palette="Accent")+
-      theme(legend.position="bottom")
-    scatterPlot3
+      scale_color_brewer(palette="Set2")
+
 
     xdensity <- ggplot(pcmgdatos, aes(V1, fill=group)) +
       geom_density(alpha=.5) +   labs(x = "PC1")+
-      scale_fill_brewer(palette="Accent")+
-      theme(legend.position = "none")
-    xdensity
+      scale_fill_brewer(palette="Set2")
+
 
 
     ydensity <- ggplot(pcmgdatos, aes(V2, fill=group)) +
       geom_density(alpha=.5) +  labs(x = "PC2")+
-      scale_fill_brewer(palette="Accent")+
-      theme(legend.position = "none")
-    ydensity
+      scale_fill_brewer(palette="Set2")
+
 
 
     zdensity <- ggplot(pcmgdatos, aes(V3, fill=group)) +
       geom_density(alpha=.5) +  labs(x = "PC3")+
-      scale_fill_brewer(palette="Accent")+
-      theme(legend.position = "none")
-    zdensity
+      scale_fill_brewer(palette="Set2")
 
-    grid.arrange(xdensity,ydensity,zdensity, scatterPlot1,scatterPlot2,
-                 scatterPlot3,ncol=3, nrow=2, widths=c(2,2,2), heights=c(2,2.5))
+    nt <- theme(legend.position='hidden')
+    grid_arrange_shared_legend(xdensity+nt,  zdensity+nt,ydensity+nt,scatterPlot1, scatterPlot2+nt,scatterPlot3+nt,  nrow=2,ncol=3)
 
   }
 

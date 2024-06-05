@@ -1,7 +1,7 @@
 Package: MultiGroupO
 Type: Package
 Title: MultiGroup Method and Simulation Data Analysis
-Version: 0.1.0
+Version: 0.3.0
 Authors@R: c(person("Carolina", "Millap/'an", email = "cayoya19@gmail.com",
              role = c("aut", "cre")), 
            person("Esteban", "Vegas", email = "evegas@ub.edu",
@@ -20,15 +20,15 @@ Description: Two method new of multigroup and simulation of data.
 License: GPL-3
 Encoding: UTF-8
 Imports: mvtnorm, rlist, expm, stats, ggplot2, gridExtra, cowplot,
-        plsgenomics, gplots, ggrepel, qgraph, mgm
+        plsgenomics, gplots, ggrepel, qgraph, mgm,lemon
 Suggests: knitr, rmarkdown
 ByteCompile: yes
 VignetteBuilder: knitr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2022-01-12 03:24:00 UTC; joelm
+Packaged: 2024-05-31 18:51:25 UTC; jmuno
 Author: Carolina Millap/'an [aut, cre],
   Esteban Vegas [aut] (<https://orcid.org/0000-0002-6869-4075>),
   Ferran Reverter [aut] (<https://orcid.org/0000-0002-9489-3350>)
 Repository: CRAN
-Date/Publication: 2022-01-12 20:22:41 UTC
+Date/Publication: 2024-06-05 02:10:02 UTC

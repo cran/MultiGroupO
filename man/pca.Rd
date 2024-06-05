@@ -6,7 +6,7 @@
 given data matrix.
 Show PCA graphical output.}
 \usage{
-pca(datos, grupos, Plot = TRUE, center = TRUE, scale = FALSE)
+pca(datos, grupos, Plot = TRUE, center = TRUE, scale = TRUE)
 }
 \arguments{
 \item{datos}{is a matrix with the data}
@@ -33,5 +33,5 @@ data(SRBCT)
 mydata<-SRBCT$X
 mydata<-mydata[1:30,1:20]
 groups<-as.factor(SRBCT$Y)[1:30]
-pca(datos=mydata,grupos=groups,Plot=TRUE,center=TRUE,scale=FALSE)
+pca(datos=mydata,grupos=groups,Plot=TRUE,center=TRUE,scale=TRUE)
 }

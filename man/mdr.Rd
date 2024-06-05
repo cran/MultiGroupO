@@ -6,12 +6,10 @@
 given multigroup data matrix.
 Show MDR graphical output.}
 \usage{
-mdr(g, grp, data.x, c, Plot = T)
+mdr(group, data.x, c, Plot = T)
 }
 \arguments{
-\item{g}{is the size of groups}
-
-\item{grp}{is a vector of classes}
+\item{group}{is a vector of classes}
 
 \item{data.x}{quantitative data set}
 
@@ -31,7 +29,7 @@ Show MDR graphical output.
 sim.list<-fun.sim(g=c(50,50,50),mean1=2,d=0,sds2=c(1,1,1,1),
 corr=c(0.5,0.5,0.5,0),n.var=c(30,30))
 
-mdr(g=c(50,50,50),grp=as.factor(sim.list$grp),
+mdr(group=as.factor(sim.list$grp),
 data.x=sim.list$`lisx`,c=2)
 
 }

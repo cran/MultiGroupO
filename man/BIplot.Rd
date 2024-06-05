@@ -41,7 +41,7 @@ biplot methods
 library(datasets)
 obj<-pca(datos=iris[,-5],grupos=iris[,5],Plot=FALSE,center=TRUE,scale=TRUE)
 BIplot(variates=obj$variates,loadings=obj$loadings,
-prop_expl_var=obj$prop_expl_var,comp=c(1,2),
-group=factor(as.numeric(iris[,5])),rownamevar=FALSE,rownameload=FALSE)
+      prop_expl_var=obj$prop_expl_var,comp=c(1,2),
+      group=factor(as.numeric(iris[,5])),rownamevar=FALSE,rownameload=TRUE)
 
 }

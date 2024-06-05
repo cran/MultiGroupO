@@ -21,14 +21,13 @@
 #'
 fun.sim<-function(g,mean1,d,n.var,sds2,corr)
 {
- # set.seed(seed)
   means<-vector();
-  k=1
   M<-length(g)
   x1<-NULL
   liscovar<-vector("list", M)
   mu<-NULL
   lisx<-NULL
+  mu2<-NULL
 
   for(j in 1:length(g))
   {
@@ -46,49 +45,46 @@ fun.sim<-function(g,mean1,d,n.var,sds2,corr)
   for(i in 1:(length(g)+1))
   {
     if(i<=length(g)){
-      covar=matrix(NA, nrow=n.var[k], ncol=n.var[k], byrow=FALSE)
+      covar=matrix(NA, nrow=n.var[1], ncol=n.var[1], byrow=FALSE)
       covar[lower.tri(covar,diag=F)]<-corr[i]*sqrt(sds2[i]*sds2[i])
       covar[upper.tri(covar)]<-corr[i]*sqrt(sds2[i]*sds2[i])
       diag(covar)<-sqrt(sds2[i]*sds2[i])
       liscovar[[i]]<-covar
 
 
-      if(d==0)
-      {
-        mu[[i]]<- c(means[i],0,rep(0,n.var[k]-2))
-
-      }
-      else{
       if(i==1){
-        mu[[i]]<- c(means[i],0,rep(0,n.var[k]-2))
+        mu[[i]]<- seq(from =means[i],to=means[i]+2,length=n.var[1])
+        x1[[i]] <- rmvnorm(g[i], mean =mu[[i]],sigma=liscovar[[i]])
       }
       else if(i==2){
-        mu[[i]]<- c(0,means[i],seq(2*means[i],4*means[i],length.out=n.var[k]-2))
+        mu[[i]]<- seq(from =means[i],to=means[i]+2,length=n.var[1])
+        x1[[i]] <- rmvnorm(g[i], mean =mu[[i]],sigma=liscovar[[i]])
       }
       else if(i==3){
-        mu[[i]]<- c(1,0,2,-means[i],seq(6*means[i],8*means[i],length.out=n.var[k]-4))
+        mu[[i]]<- seq(from =means[i],to=means[i]+2,length=n.var[1])
+        x1[[i]] <- rmvnorm(g[i], mean =mu[[i]],sigma=liscovar[[i]])
       }
       else if(i==4){
-        mu[[i]]<- c(1,0,2,0,3,means[i],rep(0,n.var[k]-6))
+        mu[[i]]<- seq(from =means[i],to=means[i]+2,length=n.var[1])
+        x1[[i]] <- rmvnorm(g[i], mean =mu[[i]],sigma=liscovar[[i]])
       }
       else if(i==5){
-        mu[[i]]<- c(0,1,0,0,-means[i],rep(0,n.var[k]-5))
+        mu[[i]]<- seq(from =means[i],to=means[i]+2,length=n.var[1])
+        x1[[i]] <- rmvnorm(g[i], mean =mu[[i]],sigma=liscovar[[i]])
       }
 
-      else {
-        mu[[i]]<- c(2,0,2,0,means[i],rep(0,n.var[k]-5))
-      }
-}
-      x1[[i]] <- rmvnorm(g[i], mean =mu[[i]],sigma=liscovar[[i]])
+      #mu[[i]]<- rep(means[i],n.var[1])
+      #x1[[i]] <- rmvnorm(g[i], mean =mu[[i]],sigma=liscovar[[i]])
 
     }
     else{
-      k=k+1
-      covar=matrix(NA, nrow=n.var[k], ncol=n.var[k], byrow=FALSE)
+
+      covar=matrix(NA, nrow=n.var[2], ncol=n.var[2], byrow=FALSE)
       covar[lower.tri(covar,diag=F)]<-corr[i]*sqrt(sds2[i]*sds2[i])
       covar[upper.tri(covar)]<-corr[i]*sqrt(sds2[i]*sds2[i])
       diag(covar)<-sqrt(sds2[i]*sds2[i])
-      x1[[i]] <- rmvnorm(sum(g), mean = rep(means[i],n.var[k]),sigma=covar)
+      mu2<-rep(means[i],n.var[2])
+      x1[[i]] <- rmvnorm(sum(g), mean = mu2,sigma=covar)
     }
   }
 
@@ -102,6 +98,6 @@ fun.sim<-function(g,mean1,d,n.var,sds2,corr)
     lisx[[i]]<- subset(x4,x4$grp==i, select=-grp)
   }
 
-  return(list(lisx=lisx,grp=grp,x=data.frame(x4),mu=mu,liscovar=liscovar))
-
+  return(list(lisx=lisx,grp=as.factor(as.numeric(grp)),x=data.frame(x4),mu=mu,liscovar=liscovar,mu2=mu2))
 }
+
