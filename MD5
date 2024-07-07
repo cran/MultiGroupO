@@ -1,4 +1,4 @@
-be4f5462f060cc6b086b42a9c1d672bd *DESCRIPTION
+a60647e95261ee7a857ccf8390ce5cf8 *DESCRIPTION
 e4286d1a9921acbfecb77c4c111e25db *NAMESPACE
 e95deced2a1cba75070b953732fb7505 *R/BIplot.r
 f5d48357b21de89a024a32a500a29cdf *R/mdr.r
@@ -13,7 +13,7 @@ c3a912730ea9211f33b1be0ae65e217c *build/vignette.rds
 3197375ea2d528e40eb4940b6007d6fb *inst/doc/datR.html
 449f7db3065e47d6e2ab26ea73371c0e *inst/doc/vignetteMult.R
 716196df51f8559aa4af50c9d385c8d5 *inst/doc/vignetteMult.Rmd
-e2fb83dbda0ce0903f818fe8029bd4bb *inst/doc/vignetteMult.html
+19272fa9670bae85170d2a041835b816 *inst/doc/vignetteMult.html
 057b0ab8b07d0beb12aff24807ad1fbf *man/BIplot.Rd
 262cef692d314ac65af8fc3d0d71d8cd *man/fun.sim.Rd
 5fd46207a638f5f2b714d69f4b79c841 *man/mdr.Rd

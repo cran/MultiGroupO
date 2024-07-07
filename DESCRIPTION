@@ -1,13 +1,17 @@
 Package: MultiGroupO
 Type: Package
 Title: MultiGroup Method and Simulation Data Analysis
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: c(person("Carolina", "Millap/'an", email = "cayoya19@gmail.com",
              role = c("aut", "cre")), 
            person("Esteban", "Vegas", email = "evegas@ub.edu",
              role = "aut", comment = c(ORCID = "0000-0002-6869-4075")),
            person("Ferran", "Reverter", email = "freverter@ub.edu",
-             role = "aut", comment = c(ORCID = "0000-0002-9489-3350")))
+             role = "aut", comment = c(ORCID = "0000-0002-9489-3350")),
+           person("Josep M", "Oller", email = "joller@ub.edu",
+             role = "aut", comment = c(ORCID = "0000-0002-9643-4406")),
+           person("Joel", "Mu/~noz", email = "joelmuno@udec.cl",
+             role = "aut", comment = c(ORCID = "0000-0001-6767-4956"))) 
 Maintainer: Carolina Millap/'an <cayoya19@gmail.com>
 Description: Two method new of multigroup and simulation of data.
   The first technique called multigroup PCA (mgPCA) this multivariate exploration approach
@@ -26,9 +30,11 @@ ByteCompile: yes
 VignetteBuilder: knitr
 RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2024-05-31 18:51:25 UTC; jmuno
+Packaged: 2024-07-07 23:06:39 UTC; jmuno
 Author: Carolina Millap/'an [aut, cre],
   Esteban Vegas [aut] (<https://orcid.org/0000-0002-6869-4075>),
-  Ferran Reverter [aut] (<https://orcid.org/0000-0002-9489-3350>)
+  Ferran Reverter [aut] (<https://orcid.org/0000-0002-9489-3350>),
+  Josep M Oller [aut] (<https://orcid.org/0000-0002-9643-4406>),
+  Joel Mu/~noz [aut] (<https://orcid.org/0000-0001-6767-4956>)
 Repository: CRAN
-Date/Publication: 2024-06-05 02:10:02 UTC
+Date/Publication: 2024-07-07 23:20:03 UTC
